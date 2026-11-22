@@ -129,6 +129,24 @@ public:
 
         return *this; // Возвращаем сам объект 
     }
+
+    T& operator[](size_t index) {
+        if (index >= size) {
+            throw std::out_of_range("Index out of range");
+        }
+        return data[index];
+    }
+
+    const T& operator[](size_t index) const {
+        if (index >= size) {
+            throw std::out_of_range("Index out of range");
+        }
+        return data[index];
+    }
+
+    void clear() {
+        size = 0;
+    }
 };
 
 

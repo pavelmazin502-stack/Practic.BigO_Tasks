@@ -1,4 +1,5 @@
 // Бинарная куча - структура данных (за O(1) просмотр самого приоритетного элемента)
+// Бинарная куча - полное бинарное дерево (3 условия)
 #ifndef BINARY_HEAP_H
 #define BINARY_HEAP_H
 
@@ -9,7 +10,7 @@
 template <typename T>
 class BinaryHeap {
 private:
-    DynamicArray<T> data;
+    DynamicArray<T> data; // Вся куча лежит в массиве
 
     void swap_elements(T& a, T& b) {
         T temp = a;
@@ -17,9 +18,9 @@ private:
         b = temp;
     }
 
-    void sift_up(size_t index) {
+    void sift_up(size_t index) { // Подъем вверх (если закинули элемент в конец массива)
         while (index > 0) {
-            size_t parent = (index - 1) / 2;
+            size_t parent = (index - 1) / 2; // Формула родителя в массиве
             if (data[parent] < data[index]) {
                 swap_elements(data[parent], data[index]);
                 index = parent;
@@ -29,10 +30,10 @@ private:
         }
     }
 
-    void sift_down(size_t index) {
+    void sift_down(size_t index) { // Функция вызывается при удалении корня
         size_t n = data.get_size();
         while (true) {
-            size_t left = 2 * index + 1;
+            size_t left = 2 * index + 1; // Индексы левого и правиого ребенка
             size_t right = 2 * index + 2;
             size_t largest = index;
 
@@ -53,7 +54,7 @@ private:
     }
 
 public:
-    void push(const T& value) {
+    void push(const T& value) { // Добавление в конец массива
         data.push_back(value);
         sift_up(data.get_size() - 1);
     }
@@ -62,10 +63,10 @@ public:
         if (is_empty()) {
             throw std::out_of_range("Heap is empty");
         }
-        return data[0];
+        return data[0]; // Возвращение макс элемента
     }
 
-    void pop() {
+    void pop() { // Функция удаления максимального элемента
         if (is_empty()) {
             throw std::out_of_range("Heap is empty");
         }

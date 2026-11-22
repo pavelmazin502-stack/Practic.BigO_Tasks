@@ -1,5 +1,5 @@
 // Бинарная куча - структура данных (за O(1) просмотр самого приоритетного элемента)
-// Бинарная куча - полное бинарное дерево (3 условия)
+// Бинарная куча - полное бинарное дерево (3 условия), любой родитель больше или равен своим детям
 #ifndef BINARY_HEAP_H
 #define BINARY_HEAP_H
 
@@ -54,7 +54,7 @@ private:
     }
 
 public:
-    void push(const T& value) { // Добавление в конец массива
+    void push(const T& value) { // Добавление в конец массива и поднимание через sift_up
         data.push_back(value);
         sift_up(data.get_size() - 1);
     }
@@ -71,7 +71,7 @@ public:
             throw std::out_of_range("Heap is empty");
         }
 
-        size_t last_index = data.get_size() - 1;
+        size_t last_index = data.get_size() - 1; // Находим индекс самого последнего элемента в массиве
         if (last_index > 0) {
             data[0] = data[last_index];
         }

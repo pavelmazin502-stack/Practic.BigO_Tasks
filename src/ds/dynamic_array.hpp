@@ -64,7 +64,7 @@ public:
     }
 
     const T& get(size_t index) const{ // Получение элемента
-        if (index > size){
+        if (index >= size){
             throw std::out_of_range("Index out of the rangfe");
         }
         return data[index];
@@ -78,7 +78,7 @@ public:
     }
 
     void remove_at(size_t index){ // Удаление элемента
-        if (index > size){
+        if (index >= size){
             throw std::out_of_range("Index out of the rangfe");
         }
         for (size_t i = index; i + 1 < size; i++){

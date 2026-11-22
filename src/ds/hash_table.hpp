@@ -154,6 +154,19 @@ public:
         }
         throw std::out_of_range("Key not found");
     }
+
+    const V& get(const K& key) const {
+        size_t index = get_bucket_index(key);
+        Node* current = buckets[index];
+        while (current != nullptr) {
+            if (current->key == key) {
+                return current->value;
+            }
+            current = current->next;
+        }
+        throw std::out_of_range("Key not found");
+    }
+
     // Удаление ключа по значению
     bool remove(const K& key) {
         size_t index = get_bucket_index(key);

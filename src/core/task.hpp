@@ -28,7 +28,7 @@ struct Task{
     uint64_t updated_at = 0;
 };
 
-// Разрешение для программы держат одну и ту же функцию/переменную сразу в нескольких файлах
+// Разрешение для программы держать одну и ту же функцию/переменную сразу в нескольких файлах
 inline string status_terminal(TaskStatus status){
     switch (status){
         case TaskStatus::Queued:
@@ -54,6 +54,25 @@ inline bool transition(TaskStatus from, TaskStatus to) {
     }
 
     return false;
+}
+
+inline TaskStatus terminalinstatus(const std::string& str) {
+    if (str == "queued"){
+        return TaskStatus::Queued;
+    }   
+    if (str == "running"){
+        return TaskStatus::Running;
+    }   
+    if (str == "completed"){
+        return TaskStatus::Completed;
+    } 
+    if (str == "failed"){
+        return TaskStatus::Failed;
+    }    
+    if (str == "cancelled"){
+        return TaskStatus::Cancelled;
+    } 
+    throw std::invalid_argument("Unknown task status: " + str);
 }
 
 #endif

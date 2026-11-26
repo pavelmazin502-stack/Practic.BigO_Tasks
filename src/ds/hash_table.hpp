@@ -80,10 +80,13 @@ private:
             }
         }
 
-        // ыкидываем старую пустую полку со шкафчиками
+        // Выкидываем старую пустую полку со шкафчиками
         delete[] old_buckets;
+        ++resize_count;
     }
 
+    size_t resize_count = 0;
+    double max_load_factor = 0.0;
 
 // Запрет на неявное приведения типов
 public:
@@ -127,6 +130,11 @@ public:
         new_node->next = buckets[index]; 
         buckets[index] = new_node;
         ++size;
+
+        double lf = static_cast<double>(size) / static_cast<double>(capacity); // Явное приведение типов
+        if (lf > max_load_factor) {
+            max_load_factor = lf;
+        }
     }
 
     // Проверяем, есть ли такой ключ в таблице
@@ -239,6 +247,14 @@ public:
         }
 
         return *this;
+    }
+
+    size_t get_resize_count() const {
+        return resize_count;
+    }
+
+    double get_max_load_factor() const {
+        return max_load_factor;
     }
 
     size_t get_size() const {
